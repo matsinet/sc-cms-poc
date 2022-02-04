@@ -9,6 +9,8 @@ dotenv.config();
 
 const router = new Navigo("/");
 
+
+
 function render(state, view) {
   document.title = state.tabTitle || store.global.tabTitle;
   document.querySelector("#root").innerHTML = `
@@ -45,7 +47,9 @@ router.hooks({
     if ('hooks' in views[view] && 'before' in views[view].hooks) {
       views[view].hooks.before(store[view])
         .then(data => {
-          merge(store[view], data);
+          if (data) {
+            merge(store[view], data);
+          }
           done();
         });
     } else {
@@ -60,10 +64,18 @@ router.hooks({
       return;
     }
 
+    console.log('matsinet-view', view);
     if ('hooks' in views[view] && 'after' in views[view].hooks) {
       views[view].hooks.after(store[view])
         .then(data => {
-          merge(store[view], data);
+          console.log('matsinet-data', data);
+          // TODO: The data is not being returned, which needs to be figured out
+          // TODO: In general I am not sure about how we are handling the store/state.
+          if (data) {
+            console.log('matsinet-view', view);
+            merge(store[view], data);
+            render(merge(store.global, store[view]), views[view]);
+          }
         });
     } else {
       console.log("No component afterHook found!");
@@ -77,6 +89,9 @@ router.notFound(
     pageNotFound();
   }
 );
+
+// Is this a good idea??? I don't think so!
+window.router = router;
 
 router
   .on({
