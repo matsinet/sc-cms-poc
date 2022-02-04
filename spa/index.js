@@ -10,7 +10,6 @@ dotenv.config();
 const router = new Navigo("/");
 
 function render(state, view) {
-  console.log('matsinet-view', view);
   document.title = state.tabTitle || store.global.tabTitle;
   document.querySelector("#root").innerHTML = `
   ${header(state)}
