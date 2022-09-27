@@ -3,13 +3,8 @@ import * as store from "./store";
 import * as views from "./views";
 import Navigo from "navigo";
 import { lowerCase, merge } from "lodash";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const router = new Navigo("/");
-
-
 
 function render(state, view) {
   document.title = state.tabTitle || store.global.tabTitle;
@@ -43,7 +38,7 @@ router.hooks({
       console.warn("View not found exiting beforeHook");
       done();
     }
-
+    // TODO: Add spinner to beforeHook processing
     if ('hooks' in views[view] && 'before' in views[view].hooks) {
       views[view].hooks.before(store[view])
         .then(data => {

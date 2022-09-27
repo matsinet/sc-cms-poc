@@ -9,8 +9,8 @@ require('dotenv').config();
 const auth = require("./controllers/v1/auth.controller");
 const users = require("./controllers/v1/users.controller");
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
 mongoose.connect(
   `${process.env.DB_CONNECT_STRING}`,
@@ -24,10 +24,10 @@ mongoose.connect(
 );
 const db = mongoose.connection;
 
-let db_status = 'MongoDB connection not successful'
+let db_status = 'MongoDB connection not successful';
 
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => db_status = 'Successful opened connection to database!')
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => db_status = 'Successful opened connection to database!');
 
 // The order is intentional for middleware use statements, don't change unless you know what you are doing.
 app.use(cors());
@@ -40,7 +40,7 @@ app.use("/v1/users", users);
 
 // Catch-all route, should always be defined last
 app.use("*", (request, response) => {
-  response.send("Undefined route, please see documentation.")
+  response.send("Undefined route, please see documentation.");
 });
 
 // Fire this thing up
@@ -48,6 +48,6 @@ app.listen(port, (error) => {
   if (error) {
     console.error("Error when starting server ", error);
   } else {
-    console.log(`Listening of port ${port}`)
+    console.log(`Listening of port ${port}`);
   }
 });

@@ -5,12 +5,12 @@
   "main": "server/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server:serve": "node server/main.js",
-    "server:watch": "nodemon --watch server -e js server/main.js",
+    "api:serve": "node server/main.js",
+    "api:watch": "nodemon --watch server -e js server/main.js",
     "spa:build": "parcel build spa/index.html && cp _redirects ./spa/dist",
     "spa:serve": "parcel spa/index.html"
   },
-  "author": "matt@rustnroll.life",
+  "author": "matsinet@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
